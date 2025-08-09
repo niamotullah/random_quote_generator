@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quote_generator/controller/quote_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:quote_generator/controller/quote_provider.dart';
 import 'package:quote_generator/widgets/quote_view.dart';
+import 'package:share_plus/share_plus.dart';
 
 class QuoteScreen extends StatefulWidget {
   const QuoteScreen({super.key});
@@ -47,10 +48,20 @@ class _QuoteScreenState extends State<QuoteScreen> {
                     key: ValueKey(currentQuote),
                   ),
                 ),
-                ElevatedButton.icon(
-                  onPressed: provider.refreshQuote,
-                  label: const Text('Random Quote'),
-                  icon: Icon(Icons.refresh),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    if (provider.currentQuote != null)
+                      IconButton(
+                        onPressed: _shareQuote,
+                        icon: Icon(Icons.share),
+                      ),
+                    ElevatedButton.icon(
+                      onPressed: provider.refreshQuote,
+                      label: const Text('Random Quote'),
+                      icon: Icon(Icons.refresh),
+                    ),
+                  ],
                 ),
               ],
             );
@@ -58,5 +69,20 @@ class _QuoteScreenState extends State<QuoteScreen> {
         ),
       ),
     );
+  }
+
+  //TODO
+  void _shareQuote() {
+    final quote = QuoteProvider.instance.currentQuote;
+    if (quote != null) {
+      final params = ShareParams(
+        text: quote.author == null
+            ? """"${quote.text}\""""
+            : """"${quote.text}"\n- ${quote.author}""",
+        downloadFallbackEnabled: true,
+        mailToFallbackEnabled: true,
+      );
+      SharePlus.instance.share(params);
+    }
   }
 }

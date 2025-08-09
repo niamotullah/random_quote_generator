@@ -9,7 +9,7 @@ class QuoteGenerator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => QuoteProvider()..loadQuotes(),
+      create: (BuildContext context) => QuoteProvider.instance..loadQuotes(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Random Quote Generator',
