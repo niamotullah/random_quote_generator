@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flutter build_runner iwatch",
+            "detail": "runs code generator",
+            "type": "shell",
+            "command": "zsh",
+            "args": [
+                "-c",
+                "dart run build_runner watch --delete-conflicting-outputs"
+            ],
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": "^(.*)$",
+                            "file": 1,
+                            "location": 1,
+                            "message": 1
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": "."
+                    }
+                }
+            ],
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}
