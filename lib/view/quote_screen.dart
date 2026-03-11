@@ -19,6 +19,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
       body: Center(
         child: Consumer<QuoteProvider>(
           builder: (context, provider, child) {
+            // WARN: could use FutureBuilder, but i enjoyed not using it anyway
             if (provider.isLoading && provider.currentQuote == null) {
               return CircularProgressIndicator();
             }
